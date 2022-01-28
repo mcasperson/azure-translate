@@ -1,6 +1,8 @@
 package com.matthewcasperson.azuretranslate;
 
+import com.matthewcasperson.azuretranslate.services.SpeechService;
 import com.matthewcasperson.azuretranslate.services.TranscribeService;
+import com.matthewcasperson.azuretranslate.services.TranslateService;
 import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpMethod;
 import com.microsoft.azure.functions.HttpRequestMessage;
@@ -20,17 +22,18 @@ import java.util.concurrent.ExecutionException;
 public class Function {
 
     private static final TranscribeService TRANSCRIBE_SERVICE = new TranscribeService();
+    private static final SpeechService SPEECH_SERVICE = new SpeechService();
+    private static final TranslateService TRANSLATE_SERVICE = new TranslateService();
 
     /**
-     * This function listens at endpoint "/api/HttpExample". Two ways to invoke it using "curl" command in bash:
-     * 1. curl -d "HTTP Body" {your host}/api/HttpExample
-     * 2. curl "{your host}/api/HttpExample?name=HTTP%20Query"
+     * Must use Content-Type: application/octet-stream
+     * https://github.com.cnpmjs.org/microsoft/azure-maven-plugins/issues/1351
      */
     @FunctionName("transcribe")
     public HttpResponseMessage run(
             @HttpTrigger(
                 name = "req",
-                methods = {HttpMethod.GET, HttpMethod.POST},
+                methods = {HttpMethod.POST},
                 authLevel = AuthorizationLevel.ANONYMOUS)
                 HttpRequestMessage<Optional<byte[]>> request,
             final ExecutionContext context) {

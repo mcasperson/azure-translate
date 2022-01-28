@@ -25,10 +25,10 @@ public class FunctionTest {
     public void testHttpTriggerJava() throws Exception {
         // Setup
         @SuppressWarnings("unchecked")
-        final HttpRequestMessage<Optional<String>> req = mock(HttpRequestMessage.class);
+        final HttpRequestMessage<Optional<byte[]>> req = mock(HttpRequestMessage.class);
 
         final Map<String, String> queryParams = new HashMap<>();
-        queryParams.put("name", "Azure");
+        queryParams.put("language", "en-US");
         doReturn(queryParams).when(req).getQueryParameters();
 
         final Optional<String> queryBody = Optional.empty();
@@ -49,6 +49,6 @@ public class FunctionTest {
         final HttpResponseMessage ret = new Function().run(req, context);
 
         // Verify
-        assertEquals(ret.getStatus(), HttpStatus.OK);
+        assertEquals(ret.getStatus(), HttpStatus.BAD_REQUEST);
     }
 }

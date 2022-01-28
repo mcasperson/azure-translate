@@ -14,11 +14,10 @@ import java.nio.file.Path;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import org.apache.commons.io.FileUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 public class TranscribeService {
 
-  public String transcribe(final MultipartFile file, final String language)
+  public String transcribe(final byte[] file, final String language)
       throws IOException, ExecutionException, InterruptedException {
     Path audioFile = null;
     try {
@@ -47,9 +46,9 @@ public class TranscribeService {
     }
   }
 
-  Path saveFileToDisk(final MultipartFile file) throws IOException {
+  Path saveFileToDisk(final byte[] file) throws IOException {
     final Path tempFile = Files.createTempFile("", ".webm");
-    file.transferTo(tempFile);
+    Files.write(tempFile, file);
     return tempFile;
   }
 }

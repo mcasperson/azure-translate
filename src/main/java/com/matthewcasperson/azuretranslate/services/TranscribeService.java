@@ -46,7 +46,7 @@ public class TranscribeService {
     }
   }
 
-  Path saveFileToDisk(final byte[] file) throws IOException {
+  private Path saveFileToDisk(final byte[] file) throws IOException {
     final Path tempFile = Files.createTempFile("", ".webm");
     Files.write(tempFile, file);
     return tempFile;

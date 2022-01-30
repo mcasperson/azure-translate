@@ -25,15 +25,15 @@ public class TranslateService {
 
     final OkHttpClient client = new OkHttpClient();
 
-    MediaType mediaType = MediaType.parse("application/json");
-    RequestBody body = RequestBody.create("[{\"Text\": \""
+    final MediaType mediaType = MediaType.parse("application/json");
+    final RequestBody body = RequestBody.create("[{\"Text\": \""
         + StringEscapeUtils.escapeJson(input) + "\"}]", mediaType);
-    Request request = new Request.Builder().url(url).post(body)
+    final Request request = new Request.Builder().url(url).post(body)
         .addHeader("Ocp-Apim-Subscription-Key", System.getenv("TRANSLATOR_KEY"))
         .addHeader("Ocp-Apim-Subscription-Region", System.getenv("TRANSLATOR_REGION"))
         .addHeader("Content-type", "application/json")
         .build();
-    Response response = client.newCall(request).execute();
+    final Response response = client.newCall(request).execute();
     return response.body().string();
   }
 }

@@ -19,7 +19,7 @@ public class SpeechService {
         System.getenv("SPEECH_KEY"),
         System.getenv("SPEECH_REGION"))) {
       speechConfig.setSpeechSynthesisLanguage(targetLanguage);
-      speechConfig.setSpeechSynthesisOutputFormat(SpeechSynthesisOutputFormat.Riff24Khz16BitMonoPcm);
+      speechConfig.setSpeechSynthesisOutputFormat(SpeechSynthesisOutputFormat.Webm24Khz16Bit24KbpsMonoOpus);
 
       final SpeechSynthesizer synthesizer = new SpeechSynthesizer(speechConfig, null);
       final SpeechSynthesisResult result = synthesizer.SpeakText(input);
